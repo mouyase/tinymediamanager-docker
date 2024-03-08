@@ -15,12 +15,6 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/jre/b
 # Define working directory.
 WORKDIR /tmp
 
-# Add Chinese font
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-    wget https://mirrors.tuna.tsinghua.edu.cn/alpine/edge/community/x86_64/font-wqy-zenhei-0.9.45-r3.apk \
-    apk add --allow-untrusted font-wqy-zenhei-0.9.45-r3.apk \
-    rm font-wqy-zenhei-0.9.45-r3.apk
-
 # Download TinyMediaManager
 RUN \
     mkdir -p /defaults && \
@@ -29,7 +23,7 @@ RUN \
 # Download and install Oracle JRE.
 # NOTE: This is needed only for the 7-Zip-JBinding workaround.
 RUN \
-    add-pkg --virtual build-dependencies curl && \
+    add-pkg --virtual build-dependencies curl  && \
     mkdir /opt/jre && \
     curl -# -L ${JAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre amazon-corretto-${JAVAJRE_VERSION}-linux-x64/jre && \
     del-pkg build-dependencies
@@ -42,6 +36,7 @@ RUN \
         # The libstdc++ package is also needed as part of the 7-Zip-JBinding
         # workaround.
         #openjdk8-jre \
+        wqy-zenhei \
         libmediainfo \
         ttf-dejavu \
         bash
