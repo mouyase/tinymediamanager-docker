@@ -25,6 +25,5 @@ jobs:
     - name: Push Docker image
       uses: docker/build-push-action@v5.2.0
       with:
-        platforms: linux/arm/v6,linux/arm/v7,amd64
         push: true
         tags: "mouyase/tinymediamanager:latest"
