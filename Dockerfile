@@ -4,8 +4,8 @@
 FROM jlesage/baseimage-gui:alpine-3.12-glibc
 
 # Define software versions.
-ARG JAVAJRE_VERSION=8.342.07.4
-ARG TMM_VERSION=3.1.17
+ARG JAVAJRE_VERSION=8.402.08.1
+ARG TMM_VERSION=3.1.18
 
 # Define software download URLs.
 ARG TMM_URL=https://release.tinymediamanager.org/v3/dist/tmm_${TMM_VERSION}_linux.tar.gz
@@ -14,6 +14,12 @@ ENV JAVA_HOME=/opt/jre/bin
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/jre/bin
 # Define working directory.
 WORKDIR /tmp
+
+# Add Chinese font
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
+    wget https://mirrors.tuna.tsinghua.edu.cn/alpine/edge/community/x86_64/font-wqy-zenhei-0.9.45-r3.apk \
+    apk add --allow-untrusted font-wqy-zenhei-0.9.45-r3.apk \
+    rm font-wqy-zenhei-0.9.45-r3.apk
 
 # Download TinyMediaManager
 RUN \
@@ -68,5 +74,5 @@ LABEL \
       org.label-schema.name="tinymediamanager" \
       org.label-schema.description="Docker container for TinyMediaManager" \
       org.label-schema.version="unknown" \
-      org.label-schema.vcs-url="https://github.com/romancin/tmm-docker" \
+      org.label-schema.vcs-url="https://github.com/mouyase/tinymediamanager-docker" \
       org.label-schema.schema-version="1.0"
