@@ -36,7 +36,6 @@ RUN \
         # The libstdc++ package is also needed as part of the 7-Zip-JBinding
         # workaround.
         #openjdk8-jre \
-        wqy-zenhei \
         libmediainfo \
         ttf-dejavu \
         bash
@@ -55,6 +54,7 @@ RUN \
 # Add files.
 COPY rootfs/ /
 COPY VERSION /
+COPY LXGWWenKaiScreen.ttf /usr/share/fonts/LXGWWenKaiScreen.ttf
 
 # Set environment variables.
 ENV APP_NAME="TinyMediaManager" \
